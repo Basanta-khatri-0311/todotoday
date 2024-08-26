@@ -27,6 +27,6 @@ inputFields.forEach((input)=>{
   })
   input.addEventListener('input',(e)=>{
     allGoals[input.id]= e.target.value
-    console.log(allGoals);
+    localStorage.setItem('allGoals', JSON.stringify(allGoals))
   })
 })
