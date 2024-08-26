@@ -3,6 +3,11 @@ const inputFields = document.querySelectorAll('.goal-input')
 const toggleWarning = document.querySelector('.warning')
 const valueForProgressBar = document.querySelector('.progress-value')
 
+
+const allGoals = {
+  
+}
+
 allTickBoxes.forEach((checkbox) => {
   checkbox.addEventListener('click', (e) => {
     const checkFilled = [...inputFields].every((input) => input.value)
