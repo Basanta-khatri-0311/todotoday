@@ -25,4 +25,8 @@ inputFields.forEach((input)=>{
   input.addEventListener('focus',()=>{
     toggleWarning.style.visibility = 'hidden'
   })
+  input.addEventListener('input',(e)=>{
+    allGoals[input.id]= e.target.value
+    console.log(allGoals);
+  })
 })
