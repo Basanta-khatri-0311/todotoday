@@ -4,9 +4,10 @@ const toggleWarning = document.querySelector('.warning')
 const valueForProgressBar = document.querySelector('.progress-value')
 
 
-const allGoals = {
-  
-}
+const allGoals = JSON.parse(localStorage.getItem('allGoals')) || {}
+let goalsCount = Object.values(allGoals).filter((goals)=> goals.completed).length
+valueForProgressBar.style.width =`${(goalsCount/3) * 100}%`
+valueForProgressBar.firstElementChild.innerText = `${goalsCount}/3 completed`
 
 allTickBoxes.forEach((checkbox) => {
   checkbox.addEventListener('click', (e) => {
@@ -14,7 +15,11 @@ allTickBoxes.forEach((checkbox) => {
 
     if (checkFilled) {
       checkbox.parentElement.classList.toggle('completed')
-      valueForProgressBar.style.width ='33.3%'
+      allGoals[checkbox.nextElementSibling.id].completed = !allGoals[checkbox.nextElementSibling.id].completed
+      goalsCount = Object.values(allGoals).filter((goals)=> goals.completed).length
+      valueForProgressBar.style.width =`${(goalsCount/3) * 100}%`
+      valueForProgressBar.firstElementChild.innerText = `${goalsCount}/3 completed`
+      localStorage.setItem('allGoals', JSON.stringify(allGoals))
     }else{
       toggleWarning.style.visibility = 'visible'
     }
@@ -22,11 +27,21 @@ allTickBoxes.forEach((checkbox) => {
 })
 
 inputFields.forEach((input)=>{
+  input.value = allGoals[input.id].name
+
+  if(allGoals[input.id].completed){
+    input.parentElement.classList.add('completed')
+  }
+
   input.addEventListener('focus',()=>{
     toggleWarning.style.visibility = 'hidden'
   })
+
   input.addEventListener('input',(e)=>{
-    allGoals[input.id]= e.target.value
+    allGoals[input.id]= {
+      name: e.target.value,
+      completed: false
+    }
     localStorage.setItem('allGoals', JSON.stringify(allGoals))
   })
 })
