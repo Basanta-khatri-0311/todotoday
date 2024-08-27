@@ -2,12 +2,19 @@ const allTickBoxes = document.querySelectorAll('.radio-btn')
 const inputFields = document.querySelectorAll('.goal-input')
 const toggleWarning = document.querySelector('.warning')
 const valueForProgressBar = document.querySelector('.progress-value')
-
+const progressLabel = document.querySelector('.progress-label')
 
 const allGoals = JSON.parse(localStorage.getItem('allGoals')) || {}
+const goalQuotes = [
+  'Raise the bar by completing your goals!',
+  'Well begun is half done!',
+  'Just a step away, keep going!',
+  'Whoa! You just completed all goals , time to chill '
+]
 let goalsCount = Object.values(allGoals).filter((goals)=> goals.completed).length
 valueForProgressBar.style.width =`${(goalsCount/3) * 100}%`
 valueForProgressBar.firstElementChild.innerText = `${goalsCount}/3 completed`
+progressLabel.innerText = goalQuotes[goalsCount]
 
 allTickBoxes.forEach((checkbox) => {
   checkbox.addEventListener('click', (e) => {
@@ -19,6 +26,7 @@ allTickBoxes.forEach((checkbox) => {
       goalsCount = Object.values(allGoals).filter((goals)=> goals.completed).length
       valueForProgressBar.style.width =`${(goalsCount/3) * 100}%`
       valueForProgressBar.firstElementChild.innerText = `${goalsCount}/3 completed`
+      progressLabel.innerText = goalQuotes[goalsCount]
       localStorage.setItem('allGoals', JSON.stringify(allGoals))
     }else{
       toggleWarning.style.visibility = 'visible'
