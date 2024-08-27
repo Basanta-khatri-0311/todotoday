@@ -38,6 +38,11 @@ inputFields.forEach((input)=>{
   })
 
   input.addEventListener('input',(e)=>{
+    if( allGoals[input.id].completed){
+      input.value = allGoals[input.id].name
+      return
+    }
+
     allGoals[input.id]= {
       name: e.target.value,
       completed: false
