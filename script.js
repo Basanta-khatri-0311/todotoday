@@ -4,7 +4,20 @@ const toggleWarning = document.querySelector('.warning')
 const valueForProgressBar = document.querySelector('.progress-value')
 const progressLabel = document.querySelector('.progress-label')
 
-const allGoals = JSON.parse(localStorage.getItem('allGoals')) || {}
+const allGoals = JSON.parse(localStorage.getItem('allGoals')) || {
+  first:{
+    name: '',
+    completed:false
+  },
+  second: {
+    name: '',
+    completed:false
+  },
+  third: {
+    name: '',
+    completed:false
+  }
+}
 const goalQuotes = [
   'Raise the bar by completing your goals!',
   'Well begun is half done!',
