@@ -5,15 +5,15 @@ const valueForProgressBar = document.querySelector('.progress-value')
 const progressLabel = document.querySelector('.progress-label')
 
 const allGoals = JSON.parse(localStorage.getItem('allGoals')) || {
-  first:{
+  firstLabel:{
     name: '',
     completed:false
   },
-  second: {
+  secondLabel: {
     name: '',
     completed:false
   },
-  third: {
+  thirdLabel: {
     name: '',
     completed:false
   }
@@ -25,7 +25,7 @@ const goalQuotes = [
   'Whoa! You just completed all goals , time to chill '
 ]
 let goalsCount = Object.values(allGoals).filter((goals)=> goals.completed).length
-valueForProgressBar.style.width =`${(goalsCount/3) * 100}%`
+valueForProgressBar.style.width =`${(goalsCount/ inputFields,length) * 100}%`
 valueForProgressBar.firstElementChild.innerText = `${goalsCount}/3 completed`
 progressLabel.innerText = goalQuotes[goalsCount]
 
@@ -37,7 +37,7 @@ allTickBoxes.forEach((checkbox) => {
       checkbox.parentElement.classList.toggle('completed')
       allGoals[checkbox.nextElementSibling.id].completed = !allGoals[checkbox.nextElementSibling.id].completed
       goalsCount = Object.values(allGoals).filter((goals)=> goals.completed).length
-      valueForProgressBar.style.width =`${(goalsCount/3) * 100}%`
+      valueForProgressBar.style.width =`${(goalsCount/inputFields.length) * 100}%`
       valueForProgressBar.firstElementChild.innerText = `${goalsCount}/3 completed`
       progressLabel.innerText = goalQuotes[goalsCount]
       localStorage.setItem('allGoals', JSON.stringify(allGoals))
@@ -64,10 +64,7 @@ inputFields.forEach((input)=>{
       return
     }
 
-    allGoals[input.id]= {
-      name: e.target.value,
-      completed: false
-    }
+    allGoals[input.id].name= input.value
     localStorage.setItem('allGoals', JSON.stringify(allGoals))
   })
 })
